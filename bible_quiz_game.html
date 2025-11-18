@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Quiz Game</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #root {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .cross-icon {
+            font-size: 3em;
+            color: #764ba2;
+        }
+
+        .language-select {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .language-btn {
+            padding: 20px 40px;
+            font-size: 1.2em;
+            border: 3px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .language-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text {
+            font-size: 1.4em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .question-number {
+            font-size: 1em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .answers-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .answer-btn {
+            padding: 20px;
+            font-size: 1.1em;
+            border: 3px solid #667eea;
+            background: white;
+            color: #2d3748;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .answer-btn:hover {
+            background: #f7fafc;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .answer-btn.correct {
+            background: #48bb78;
+            color: white;
+            border-color: #48bb78;
+        }
+
+        .answer-btn.incorrect {
+            background: #f56565;
+            color: white;
+            border-color: #f56565;
+        }
+
+        .answer-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .next-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .results-screen {
+            text-align: center;
+        }
+
+        .results-score {
+            font-size: 4em;
+            color: #667eea;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .results-message {
+            font-size: 1.5em;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .results-details {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+
+        .restart-btn {
+            padding: 18px 40px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .feedback.incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .language-btn {
+                padding: 15px 30px;
+                font-size: 1em;
+            }
+
+            .question-text {
+                font-size: 1.2em;
+            }
+
+            .answer-btn {
+                font-size: 1em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // QUESTIONS DATABASE
+        // TO ADD MORE QUESTIONS: Add objects to the arrays below following the same format
+        const questionsDatabase = {
+            en: [
+                {
+                    question: "How many books are in the Bible?",
+                    answers: ["66", "73", "50", "39"],
+                    correct: 0
+                },
+                {
+                    question: "Who was the first man created by God?",
+                    answers: ["Abraham", "Moses", "Adam", "Noah"],
+                    correct: 2
+                },
+                {
+                    question: "In which city was Jesus born?",
+                    answers: ["Jerusalem", "Nazareth", "Bethlehem", "Galilee"],
+                    correct: 2
+                },
+                {
+                    question: "How many disciples did Jesus have?",
+                    answers: ["10", "12", "7", "15"],
+                    correct: 1
+                },
+                {
+                    question: "Who built the ark?",
+                    answers: ["Moses", "Abraham", "David", "Noah"],
+                    correct: 3
+                },
+                {
+                    question: "What is the first book of the Bible?",
+                    answers: ["Exodus", "Genesis", "Psalms", "Matthew"],
+                    correct: 1
+                },
+                {
+                    question: "Who was swallowed by a great fish?",
+                    answers: ["Jonah", "Peter", "Paul", "John"],
+                    correct: 0
+                },
+                {
+                    question: "How many days did God take to create the world?",
+                    answers: ["7", "5", "6", "10"],
+                    correct: 2
+                },
+                {
+                    question: "Who defeated Goliath?",
+                    answers: ["Saul", "Samuel", "David", "Solomon"],
+                    correct: 2
+                },
+                {
+                    question: "What was the first miracle Jesus performed?",
+                    answers: ["Walking on water", "Turning water into wine", "Healing the blind", "Feeding 5000"],
+                    correct: 1
+                }
+            ],
+            pt: [
+                {
+                    question: "Quantos livros tem a Bíblia?",
+                    answers: ["66", "73", "50", "39"],
+                    correct: 0
+                },
+                {
+                    question: "Quem foi o primeiro homem criado por Deus?",
+                    answers: ["Abraão", "Moisés", "Adão", "Noé"],
+                    correct: 2
+                },
+                {
+                    question: "Em que cidade nasceu Jesus?",
+                    answers: ["Jerusalém", "Nazaré", "Belém", "Galileia"],
+                    correct: 2
+                },
+                {
+                    question: "Quantos discípulos teve Jesus?",
+                    answers: ["10", "12", "7", "15"],
+                    correct: 1
+                },
+                {
+                    question: "Quem construiu a arca?",
+                    answers: ["Moisés", "Abraão", "David", "Noé"],
+                    correct: 3
+                },
+                {
+                    question: "Qual é o primeiro livro da Bíblia?",
+                    answers: ["Êxodo", "Génesis", "Salmos", "Mateus"],
+                    correct: 1
+                },
+                {
+                    question: "Quem foi engolido por um grande peixe?",
+                    answers: ["Jonas", "Pedro", "Paulo", "João"],
+                    correct: 0
+                },
+                {
+                    question: "Quantos dias Deus levou a criar o mundo?",
+                    answers: ["7", "5", "6", "10"],
+                    correct: 2
+                },
+                {
+                    question: "Quem derrotou Golias?",
+                    answers: ["Saul", "Samuel", "David", "Salomão"],
+                    correct: 2
+                },
+                {
+                    question: "Qual foi o primeiro milagre que Jesus realizou?",
+                    answers: ["Andar sobre a água", "Transformar água em vinho", "Curar o cego", "Alimentar 5000"],
+                    correct: 1
+                }
+            ]
+        };
+
+        const translations = {
+            en: {
+                title: "Bible Quiz",
+                selectLanguage: "Select Language",
+                score: "Score",
+                question: "Question",
+                of: "of",
+                next: "Next Question",
+                finish: "Finish Quiz",
+                yourScore: "Your Score",
+                excellent: "Excellent! You know the Bible well!",
+                good: "Good job! Keep studying!",
+                needsImprovement: "Keep reading the Bible to learn more!",
+                correctAnswers: "Correct Answers",
+                incorrectAnswers: "Incorrect Answers",
+                playAgain: "Play Again",
+                correct: "Correct!",
+                incorrect: "Incorrect. The correct answer is:"
+            },
+            pt: {
+                title: "Quiz Bíblico",
+                selectLanguage: "Selecionar Idioma",
+                score: "Pontuação",
+                question: "Pergunta",
+                of: "de",
+                next: "Próxima Pergunta",
+                finish: "Terminar Quiz",
+                yourScore: "A Tua Pontuação",
+                excellent: "Excelente! Conheces bem a Bíblia!",
+                good: "Bom trabalho! Continua a estudar!",
+                needsImprovement: "Continua a ler a Bíblia para aprender mais!",
+                correctAnswers: "Respostas Correctas",
+                incorrectAnswers: "Respostas Incorrectas",
+                playAgain: "Jogar Novamente",
+                correct: "Correcto!",
+                incorrect: "Incorrecto. A resposta correcta é:"
+            }
+        };
+
+        function BibleQuizGame() {
+            const [language, setLanguage] = useState(null);
+            const [currentQuestion, setCurrentQuestion] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showResults, setShowResults] = useState(false);
+            const [selectedAnswer, setSelectedAnswer] = useState(null);
+            const [showFeedback, setShowFeedback] = useState(false);
+            const [incorrectCount, setIncorrectCount] = useState(0);
+
+            const t = language ? translations[language] : translations.en;
+            const questions = language ? questionsDatabase[language] : [];
+
+            const handleLanguageSelect = (lang) => {
+                setLanguage(lang);
+            };
+
+            const handleAnswerClick = (index) => {
+                if (selectedAnswer !== null) return;
+
+                setSelectedAnswer(index);
+                setShowFeedback(true);
+
+                if (index === questions[currentQuestion].correct) {
+                    setScore(score + 1);
+                } else {
+                    setIncorrectCount(incorrectCount + 1);
+                }
+            };
+
+            const handleNextQuestion = () => {
+                if (currentQuestion < questions.length - 1) {
+                    setCurrentQuestion(currentQuestion + 1);
+                    setSelectedAnswer(null);
+                    setShowFeedback(false);
+                } else {
+                    setShowResults(true);
+                }
+            };
+
+            const handleRestart = () => {
+                setLanguage(null);
+                setCurrentQuestion(0);
+                setScore(0);
+                setShowResults(false);
+                setSelectedAnswer(null);
+                setShowFeedback(false);
+                setIncorrectCount(0);
+            };
+
+            const getResultMessage = () => {
+                const percentage = (score / questions.length) * 100;
+                if (percentage >= 80) return t.excellent;
+                if (percentage >= 60) return t.good;
+                return t.needsImprovement;
+            };
+
+            if (!language) {
+                return (
+                    <div className="game-container">
+                        <div className="header">
+                            <div className="cross-icon">✟</div>
+                            <h1>Bible Quiz Game</h1>
+                        </div>
+                        <div className="language-select">
+                            <button className="language-btn" onClick={() => handleLanguageSelect('en')}>
+                                🇬🇧 English
+                            </button>
+                            <button className="language-btn" onClick={() => handleLanguageSelect('pt')}>
+                                🇵🇹 Português
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (showResults) {
+                const percentage = Math.round((score / questions.length) * 100);
+                return (
+                    <div className="game-container">
+                        <div className="header">
+                            <div className="cross-icon">✟</div>
+                            <h1>{t.title}</h1>
+                        </div>
+                        <div className="results-screen">
+                            <h2>{t.yourScore}</h2>
+                            <div className="results-score">{percentage}%</div>
+                            <div className="results-message">{getResultMessage()}</div>
+                            <div className="results-details">
+                                <div>✓ {t.correctAnswers}: {score}</div>
+                                <div>✗ {t.incorrectAnswers}: {incorrectCount}</div>
+                            </div>
+                            <button className="restart-btn" onClick={handleRestart}>
+                                {t.playAgain}
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            const question = questions[currentQuestion];
+            const isCorrect = selectedAnswer === question.correct;
+
+            return (
+                <div className="game-container">
+                    <div className="header">
+                        <div className="cross-icon">✟</div>
+                        <h1>{t.title}</h1>
+                    </div>
+
+                    <div className="score-board">
+                        <div>{t.score}: {score}</div>
+                        <div>{t.question} {currentQuestion + 1} {t.of} {questions.length}</div>
+                    </div>
+
+                    <div className="question-card">
+                        <div className="question-number">
+                            {t.question} {currentQuestion + 1}
+                        </div>
+                        <div className="question-text">{question.question}</div>
+                    </div>
+
+                    <div className="answers-grid">
+                        {question.answers.map((answer, index) => (
+                            <button
+                                key={index}
+                                className={`answer-btn ${
+                                    selectedAnswer === index
+                                        ? index === question.correct
+                                            ? 'correct'
+                                            : 'incorrect'
+                                        : selectedAnswer !== null && index === question.correct
+                                        ? 'correct'
+                                        : ''
+                                }`}
+                                onClick={() => handleAnswerClick(index)}
+                                disabled={selectedAnswer !== null}
+                            >
+                                {answer}
+                            </button>
+                        ))}
+                    </div>
+
+                    {showFeedback && (
+                        <div className={`feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
+                            {isCorrect ? (
+                                <div>✓ {t.correct}</div>
+                            ) : (
+                                <div>✗ {t.incorrect} {question.answers[question.correct]}</div>
+                            )}
+                        </div>
+                    )}
+
+                    {selectedAnswer !== null && (
+                        <button className="next-btn" onClick={handleNextQuestion}>
+                            {currentQuestion < questions.length - 1 ? t.next : t.finish}
+                        </button>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BibleQuizGame />);
+    </script>
+</body>
+</html>
