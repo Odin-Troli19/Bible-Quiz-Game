@@ -101,6 +101,91 @@
             color: white;
             font-size: 1.2em;
             font-weight: bold;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .streak-badge {
+            background: #ffd700;
+            color: #2d3748;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .difficulty-select {
+            margin: 30px 0;
+        }
+
+        .difficulty-select h3 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .difficulty-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .difficulty-btn {
+            padding: 20px;
+            font-size: 1.1em;
+            border: 3px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .difficulty-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .difficulty-btn.easy {
+            border-color: #48bb78;
+            color: #48bb78;
+        }
+
+        .difficulty-btn.easy:hover {
+            background: #48bb78;
+            color: white;
+        }
+
+        .difficulty-btn.medium {
+            border-color: #ed8936;
+            color: #ed8936;
+        }
+
+        .difficulty-btn.medium:hover {
+            background: #ed8936;
+            color: white;
+        }
+
+        .difficulty-btn.hard {
+            border-color: #f56565;
+            color: #f56565;
+        }
+
+        .difficulty-btn.hard:hover {
+            background: #f56565;
+            color: white;
         }
 
         .question-card {
@@ -232,7 +317,7 @@
 
         .feedback {
             margin-top: 15px;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             font-size: 1.1em;
             font-weight: 500;
@@ -241,11 +326,37 @@
         .feedback.correct {
             background: #c6f6d5;
             color: #22543d;
+            border-left: 5px solid #48bb78;
         }
 
         .feedback.incorrect {
             background: #fed7d7;
             color: #742a2a;
+            border-left: 5px solid #f56565;
+        }
+
+        .bible-verse {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .verse-reference {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            font-style: normal;
+            color: #667eea;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-size: 0.95em;
+            line-height: 1.5;
+            font-style: normal;
         }
 
         @media (max-width: 600px) {
@@ -286,104 +397,404 @@
                 {
                     question: "How many books are in the Bible?",
                     answers: ["66", "73", "50", "39"],
-                    correct: 0
+                    correct: 0,
+                    verse: "The Protestant Bible contains 66 books: 39 in the Old Testament and 27 in the New Testament.",
+                    reference: "General Biblical Knowledge",
+                    explanation: "The number varies by tradition: Protestant Bibles have 66 books, while Catholic Bibles include 73 books with the deuterocanonical books."
                 },
                 {
                     question: "Who was the first man created by God?",
                     answers: ["Abraham", "Moses", "Adam", "Noah"],
-                    correct: 2
+                    correct: 2,
+                    verse: "So God created mankind in his own image, in the image of God he created them; male and female he created them.",
+                    reference: "Genesis 1:27",
+                    explanation: "Adam was the first human being created by God, formed from the dust of the ground."
                 },
                 {
                     question: "In which city was Jesus born?",
                     answers: ["Jerusalem", "Nazareth", "Bethlehem", "Galilee"],
-                    correct: 2
+                    correct: 2,
+                    verse: "But you, Bethlehem Ephrathah, though you are small among the clans of Judah, out of you will come for me one who will be ruler over Israel.",
+                    reference: "Micah 5:2 / Matthew 2:1",
+                    explanation: "Jesus was born in Bethlehem, fulfilling the prophecy from Micah, though he grew up in Nazareth."
                 },
                 {
                     question: "How many disciples did Jesus have?",
                     answers: ["10", "12", "7", "15"],
-                    correct: 1
+                    correct: 1,
+                    verse: "One of those days Jesus went out to a mountainside to pray, and spent the night praying to God. When morning came, he called his disciples to him and chose twelve of them, whom he also designated apostles.",
+                    reference: "Luke 6:12-13",
+                    explanation: "Jesus chose 12 disciples (also called apostles) to be his closest followers and learn from him."
                 },
                 {
                     question: "Who built the ark?",
                     answers: ["Moses", "Abraham", "David", "Noah"],
-                    correct: 3
+                    correct: 3,
+                    verse: "So make yourself an ark of cypress wood; make rooms in it and coat it with pitch inside and out.",
+                    reference: "Genesis 6:14",
+                    explanation: "God commanded Noah to build the ark to save his family and animals from the great flood."
                 },
                 {
                     question: "What is the first book of the Bible?",
                     answers: ["Exodus", "Genesis", "Psalms", "Matthew"],
-                    correct: 1
+                    correct: 1,
+                    verse: "In the beginning God created the heavens and the earth.",
+                    reference: "Genesis 1:1",
+                    explanation: "Genesis, meaning 'beginning,' is the first book of the Bible and describes creation and early human history."
                 },
                 {
                     question: "Who was swallowed by a great fish?",
                     answers: ["Jonah", "Peter", "Paul", "John"],
-                    correct: 0
+                    correct: 0,
+                    verse: "Now the Lord provided a huge fish to swallow Jonah, and Jonah was in the belly of the fish three days and three nights.",
+                    reference: "Jonah 1:17",
+                    explanation: "Jonah was swallowed by a great fish after fleeing from God's command to preach to Nineveh."
                 },
                 {
                     question: "How many days did God take to create the world?",
                     answers: ["7", "5", "6", "10"],
-                    correct: 2
+                    correct: 2,
+                    verse: "By the seventh day God had finished the work he had been doing; so on the seventh day he rested from all his work.",
+                    reference: "Genesis 2:2",
+                    explanation: "God created the world in 6 days and rested on the 7th day, establishing the Sabbath."
                 },
                 {
                     question: "Who defeated Goliath?",
                     answers: ["Saul", "Samuel", "David", "Solomon"],
-                    correct: 2
+                    correct: 2,
+                    verse: "So David triumphed over the Philistine with a sling and a stone; without a sword in his hand he struck down the Philistine and killed him.",
+                    reference: "1 Samuel 17:50",
+                    explanation: "David, a young shepherd, defeated the giant Goliath with just a sling and a stone, trusting in God."
                 },
                 {
                     question: "What was the first miracle Jesus performed?",
                     answers: ["Walking on water", "Turning water into wine", "Healing the blind", "Feeding 5000"],
-                    correct: 1
+                    correct: 1,
+                    verse: "What Jesus did here in Cana of Galilee was the first of the signs through which he revealed his glory; and his disciples believed in him.",
+                    reference: "John 2:11",
+                    explanation: "Jesus turned water into wine at a wedding in Cana, revealing his divine power for the first time."
+                },
+                {
+                    question: "Who was the mother of Jesus?",
+                    answers: ["Elizabeth", "Mary", "Martha", "Sarah"],
+                    correct: 1,
+                    verse: "In the sixth month of Elizabeth's pregnancy, God sent the angel Gabriel to Nazareth, a town in Galilee, to a virgin pledged to be married to a man named Joseph, a descendant of David. The virgin's name was Mary.",
+                    reference: "Luke 1:26-27",
+                    explanation: "Mary was chosen by God to be the mother of Jesus, giving birth as a virgin through the Holy Spirit."
+                },
+                {
+                    question: "How many days and nights did it rain during the flood?",
+                    answers: ["30", "40", "50", "100"],
+                    correct: 1,
+                    verse: "And rain fell on the earth forty days and forty nights.",
+                    reference: "Genesis 7:12",
+                    explanation: "The great flood lasted 40 days and 40 nights, covering the entire earth."
+                },
+                {
+                    question: "Who betrayed Jesus?",
+                    answers: ["Peter", "John", "Judas", "Thomas"],
+                    correct: 2,
+                    verse: "Then one of the Twelve—the one called Judas Iscariot—went to the chief priests and asked, 'What are you willing to give me if I deliver him over to you?' So they counted out for him thirty pieces of silver.",
+                    reference: "Matthew 26:14-15",
+                    explanation: "Judas Iscariot, one of the twelve disciples, betrayed Jesus for thirty pieces of silver."
+                },
+                {
+                    question: "What was the name of the garden where Adam and Eve lived?",
+                    answers: ["Gethsemane", "Eden", "Babylon", "Paradise"],
+                    correct: 1,
+                    verse: "Now the Lord God had planted a garden in the east, in Eden; and there he put the man he had formed.",
+                    reference: "Genesis 2:8",
+                    explanation: "The Garden of Eden was the perfect paradise where God placed Adam and Eve."
+                },
+                {
+                    question: "Who led the Israelites out of Egypt?",
+                    answers: ["Abraham", "Moses", "Joshua", "Aaron"],
+                    correct: 1,
+                    verse: "So God sent Moses back to Egypt to help his people. Moses freed the Israelites from slavery and led them to the desert.",
+                    reference: "Exodus 3:10",
+                    explanation: "God called Moses to lead the Israelites out of slavery in Egypt through the parting of the Red Sea."
+                },
+                {
+                    question: "How many plagues did God send to Egypt?",
+                    answers: ["7", "10", "12", "5"],
+                    correct: 1,
+                    verse: "The plagues included water turning to blood, frogs, gnats, flies, livestock disease, boils, hail, locusts, darkness, and death of firstborn.",
+                    reference: "Exodus 7-12",
+                    explanation: "God sent 10 plagues to convince Pharaoh to release the Israelites from slavery."
+                },
+                {
+                    question: "Who was the strongest man in the Bible?",
+                    answers: ["David", "Samson", "Goliath", "Moses"],
+                    correct: 1,
+                    verse: "Then Samson prayed to the Lord, 'Sovereign Lord, remember me. Please, God, strengthen me just once more, and let me with one blow get revenge on the Philistines for my two eyes.'",
+                    reference: "Judges 16:28",
+                    explanation: "Samson was given supernatural strength by God, which came from his uncut hair as part of his Nazirite vow."
+                },
+                {
+                    question: "What are the first four books of the New Testament called?",
+                    answers: ["Acts", "Epistles", "Gospels", "Prophecies"],
+                    correct: 2,
+                    verse: "The books of Matthew, Mark, Luke, and John are known as the Gospels, meaning 'good news.'",
+                    reference: "Matthew, Mark, Luke, John",
+                    explanation: "The four Gospels tell the story of Jesus's life, death, and resurrection from different perspectives."
+                },
+                {
+                    question: "Who was thrown into a den of lions?",
+                    answers: ["Daniel", "David", "Joseph", "Elijah"],
+                    correct: 0,
+                    verse: "So the king gave the order, and they brought Daniel and threw him into the lions' den. The king said to Daniel, 'May your God, whom you serve continually, rescue you!'",
+                    reference: "Daniel 6:16",
+                    explanation: "Daniel was thrown into the lions' den for praying to God, but God protected him through the night."
+                },
+                {
+                    question: "What did God give Moses on Mount Sinai?",
+                    answers: ["A staff", "The Ten Commandments", "A crown", "Water"],
+                    correct: 1,
+                    verse: "When the Lord finished speaking to Moses on Mount Sinai, he gave him the two tablets of the covenant law, the tablets of stone inscribed by the finger of God.",
+                    reference: "Exodus 31:18",
+                    explanation: "God gave Moses the Ten Commandments written on stone tablets on Mount Sinai."
+                },
+                {
+                    question: "How many days was Lazarus dead before Jesus raised him?",
+                    answers: ["1", "2", "3", "4"],
+                    correct: 3,
+                    verse: "By this time there was a bad odor, for he had been there four days.",
+                    reference: "John 11:39",
+                    explanation: "Lazarus had been dead for four days when Jesus raised him from the dead, demonstrating his power over death."
+                },
+                {
+                    question: "What did Jesus do at the Last Supper?",
+                    answers: ["Healed the sick", "Instituted communion", "Walked on water", "Fed 5000"],
+                    correct: 1,
+                    verse: "And he took bread, gave thanks and broke it, and gave it to them, saying, 'This is my body given for you; do this in remembrance of me.'",
+                    reference: "Luke 22:19",
+                    explanation: "At the Last Supper, Jesus instituted communion, breaking bread and sharing wine with his disciples."
+                },
+                {
+                    question: "Who denied Jesus three times?",
+                    answers: ["John", "Peter", "Judas", "Thomas"],
+                    correct: 1,
+                    verse: "Then Peter remembered the word Jesus had spoken: 'Before the rooster crows, you will disown me three times.' And he went outside and wept bitterly.",
+                    reference: "Matthew 26:75",
+                    explanation: "Peter denied knowing Jesus three times before the rooster crowed, just as Jesus had predicted."
+                },
+                {
+                    question: "On which day did Jesus rise from the dead?",
+                    answers: ["First day of the week", "Sabbath", "Third day", "Both first and third"],
+                    correct: 3,
+                    verse: "After the Sabbath, at dawn on the first day of the week, Mary Magdalene and the other Mary went to look at the tomb.",
+                    reference: "Matthew 28:1",
+                    explanation: "Jesus rose on the first day of the week (Sunday), which was the third day after his crucifixion."
+                },
+                {
+                    question: "What is the shortest verse in the Bible?",
+                    answers: ["God is love", "Jesus wept", "Pray always", "Be holy"],
+                    correct: 1,
+                    verse: "Jesus wept.",
+                    reference: "John 11:35",
+                    explanation: "The shortest verse in the Bible is 'Jesus wept,' showing his humanity and compassion at Lazarus's death."
                 }
             ],
             pt: [
                 {
                     question: "Quantos livros tem a Bíblia?",
                     answers: ["66", "73", "50", "39"],
-                    correct: 0
+                    correct: 0,
+                    verse: "A Bíblia Protestante contém 66 livros: 39 no Antigo Testamento e 27 no Novo Testamento.",
+                    reference: "Conhecimento Bíblico Geral",
+                    explanation: "O número varia por tradição: As Bíblias Protestantes têm 66 livros, enquanto as Bíblias Católicas incluem 73 livros com os livros deuterocanónicos."
                 },
                 {
                     question: "Quem foi o primeiro homem criado por Deus?",
                     answers: ["Abraão", "Moisés", "Adão", "Noé"],
-                    correct: 2
+                    correct: 2,
+                    verse: "Criou Deus, pois, o homem à sua imagem; à imagem de Deus o criou; homem e mulher os criou.",
+                    reference: "Génesis 1:27",
+                    explanation: "Adão foi o primeiro ser humano criado por Deus, formado do pó da terra."
                 },
                 {
                     question: "Em que cidade nasceu Jesus?",
                     answers: ["Jerusalém", "Nazaré", "Belém", "Galileia"],
-                    correct: 2
+                    correct: 2,
+                    verse: "E tu, Belém Efrata, posto que pequena entre os milhares de Judá, de ti me sairá o que há-de reinar em Israel.",
+                    reference: "Miqueias 5:2 / Mateus 2:1",
+                    explanation: "Jesus nasceu em Belém, cumprindo a profecia de Miqueias, embora tenha crescido em Nazaré."
                 },
                 {
                     question: "Quantos discípulos teve Jesus?",
                     answers: ["10", "12", "7", "15"],
-                    correct: 1
+                    correct: 1,
+                    verse: "E aconteceu que naqueles dias subiu ao monte a orar, e passou a noite em oração a Deus. E, quando já era dia, chamou a si os seus discípulos, e escolheu doze deles.",
+                    reference: "Lucas 6:12-13",
+                    explanation: "Jesus escolheu 12 discípulos (também chamados apóstolos) para serem seus seguidores mais próximos."
                 },
                 {
                     question: "Quem construiu a arca?",
                     answers: ["Moisés", "Abraão", "David", "Noé"],
-                    correct: 3
+                    correct: 3,
+                    verse: "Faze para ti uma arca de madeira de gofer; farás compartimentos na arca e a betumarás por dentro e por fora com betume.",
+                    reference: "Génesis 6:14",
+                    explanation: "Deus ordenou a Noé que construísse a arca para salvar a sua família e os animais do grande dilúvio."
                 },
                 {
                     question: "Qual é o primeiro livro da Bíblia?",
                     answers: ["Êxodo", "Génesis", "Salmos", "Mateus"],
-                    correct: 1
+                    correct: 1,
+                    verse: "No princípio criou Deus os céus e a terra.",
+                    reference: "Génesis 1:1",
+                    explanation: "Génesis, que significa 'começo', é o primeiro livro da Bíblia e descreve a criação e a história humana primitiva."
                 },
                 {
                     question: "Quem foi engolido por um grande peixe?",
                     answers: ["Jonas", "Pedro", "Paulo", "João"],
-                    correct: 0
+                    correct: 0,
+                    verse: "Deparou o Senhor um grande peixe, para que tragasse a Jonas; e esteve Jonas três dias e três noites nas entranhas do peixe.",
+                    reference: "Jonas 1:17",
+                    explanation: "Jonas foi engolido por um grande peixe depois de fugir da ordem de Deus para pregar em Nínive."
                 },
                 {
                     question: "Quantos dias Deus levou a criar o mundo?",
                     answers: ["7", "5", "6", "10"],
-                    correct: 2
+                    correct: 2,
+                    verse: "E havendo Deus acabado no dia sétimo a sua obra, que tinha feito, descansou no sétimo dia de toda a sua obra que fizera.",
+                    reference: "Génesis 2:2",
+                    explanation: "Deus criou o mundo em 6 dias e descansou no 7º dia, estabelecendo o Sábado."
                 },
                 {
                     question: "Quem derrotou Golias?",
                     answers: ["Saul", "Samuel", "David", "Salomão"],
-                    correct: 2
+                    correct: 2,
+                    verse: "Assim David prevaleceu contra o filisteu com uma funda e com uma pedra; e feriu o filisteu, e o matou; porém não havia espada na mão de David.",
+                    reference: "1 Samuel 17:50",
+                    explanation: "David, um jovem pastor, derrotou o gigante Golias apenas com uma funda e uma pedra, confiando em Deus."
                 },
                 {
                     question: "Qual foi o primeiro milagre que Jesus realizou?",
                     answers: ["Andar sobre a água", "Transformar água em vinho", "Curar o cego", "Alimentar 5000"],
-                    correct: 1
+                    correct: 1,
+                    verse: "Jesus principiou assim os seus sinais em Caná da Galileia, e manifestou a sua glória; e os seus discípulos creram nele.",
+                    reference: "João 2:11",
+                    explanation: "Jesus transformou água em vinho num casamento em Caná, revelando o seu poder divino pela primeira vez."
+                },
+                {
+                    question: "Quem era a mãe de Jesus?",
+                    answers: ["Isabel", "Maria", "Marta", "Sara"],
+                    correct: 1,
+                    verse: "E, no sexto mês, foi o anjo Gabriel enviado por Deus a uma cidade da Galileia, chamada Nazaré, a uma virgem desposada com um homem, cujo nome era José, da casa de David; e o nome da virgem era Maria.",
+                    reference: "Lucas 1:26-27",
+                    explanation: "Maria foi escolhida por Deus para ser a mãe de Jesus, dando à luz como virgem através do Espírito Santo."
+                },
+                {
+                    question: "Quantos dias e noites choveu durante o dilúvio?",
+                    answers: ["30", "40", "50", "100"],
+                    correct: 1,
+                    verse: "E a chuva caiu sobre a terra quarenta dias e quarenta noites.",
+                    reference: "Génesis 7:12",
+                    explanation: "O grande dilúvio durou 40 dias e 40 noites, cobrindo toda a terra."
+                },
+                {
+                    question: "Quem traiu Jesus?",
+                    answers: ["Pedro", "João", "Judas", "Tomé"],
+                    correct: 2,
+                    verse: "Então um dos doze, chamado Judas Iscariotes, foi ter com os príncipes dos sacerdotes, e disse: Que me quereis dar, e eu vo-lo entregarei? E eles lhe pesaram trinta moedas de prata.",
+                    reference: "Mateus 26:14-15",
+                    explanation: "Judas Iscariotes, um dos doze discípulos, traiu Jesus por trinta moedas de prata."
+                },
+                {
+                    question: "Qual era o nome do jardim onde Adão e Eva viviam?",
+                    answers: ["Getsémani", "Éden", "Babilónia", "Paraíso"],
+                    correct: 1,
+                    verse: "E plantou o Senhor Deus um jardim no Éden, do lado oriental; e pôs ali o homem que tinha formado.",
+                    reference: "Génesis 2:8",
+                    explanation: "O Jardim do Éden era o paraíso perfeito onde Deus colocou Adão e Eva."
+                },
+                {
+                    question: "Quem liderou os israelitas para fora do Egito?",
+                    answers: ["Abraão", "Moisés", "Josué", "Aarão"],
+                    correct: 1,
+                    verse: "Vem agora, pois, e eu te enviarei a Faraó para que tires o meu povo, os filhos de Israel, do Egito.",
+                    reference: "Êxodo 3:10",
+                    explanation: "Deus chamou Moisés para liderar os israelitas para fora da escravidão no Egito através da abertura do Mar Vermelho."
+                },
+                {
+                    question: "Quantas pragas Deus enviou ao Egito?",
+                    answers: ["7", "10", "12", "5"],
+                    correct: 1,
+                    verse: "As pragas incluíram água transformada em sangue, rãs, piolhos, moscas, peste no gado, úlceras, saraiva, gafanhotos, trevas e morte dos primogénitos.",
+                    reference: "Êxodo 7-12",
+                    explanation: "Deus enviou 10 pragas para convencer o Faraó a libertar os israelitas da escravidão."
+                },
+                {
+                    question: "Quem foi o homem mais forte da Bíblia?",
+                    answers: ["David", "Sansão", "Golias", "Moisés"],
+                    correct: 1,
+                    verse: "Então Sansão clamou ao Senhor, e disse: Senhor Deus, peço-te que te lembres de mim, e fortalece-me agora só esta vez, ó Deus.",
+                    reference: "Juízes 16:28",
+                    explanation: "Sansão recebeu força sobrenatural de Deus, que vinha do seu cabelo não cortado como parte do seu voto nazireu."
+                },
+                {
+                    question: "Como se chamam os primeiros quatro livros do Novo Testamento?",
+                    answers: ["Actos", "Epístolas", "Evangelhos", "Profecias"],
+                    correct: 2,
+                    verse: "Os livros de Mateus, Marcos, Lucas e João são conhecidos como os Evangelhos, que significa 'boas novas'.",
+                    reference: "Mateus, Marcos, Lucas, João",
+                    explanation: "Os quatro Evangelhos contam a história da vida, morte e ressurreição de Jesus de diferentes perspectivas."
+                },
+                {
+                    question: "Quem foi lançado na cova dos leões?",
+                    answers: ["Daniel", "David", "José", "Elias"],
+                    correct: 0,
+                    verse: "Então o rei ordenou, e trouxeram a Daniel, e lançaram-no na cova dos leões. E, falando o rei, disse a Daniel: O teu Deus, a quem tu continuamente serves, ele te livrará.",
+                    reference: "Daniel 6:16",
+                    explanation: "Daniel foi lançado na cova dos leões por orar a Deus, mas Deus protegeu-o durante a noite."
+                },
+                {
+                    question: "O que Deus deu a Moisés no Monte Sinai?",
+                    answers: ["Um cajado", "Os Dez Mandamentos", "Uma coroa", "Água"],
+                    correct: 1,
+                    verse: "E deu a Moisés, quando acabou de falar com ele no monte Sinai, as duas tábuas do testemunho, tábuas de pedra, escritas pelo dedo de Deus.",
+                    reference: "Êxodo 31:18",
+                    explanation: "Deus deu a Moisés os Dez Mandamentos escritos em tábuas de pedra no Monte Sinai."
+                },
+                {
+                    question: "Quantos dias Lázaro estava morto antes de Jesus o ressuscitar?",
+                    answers: ["1", "2", "3", "4"],
+                    correct: 3,
+                    verse: "Disse-lhe Marta: Senhor, já cheira mal, porque é já de quatro dias.",
+                    reference: "João 11:39",
+                    explanation: "Lázaro estava morto há quatro dias quando Jesus o ressuscitou dos mortos, demonstrando o seu poder sobre a morte."
+                },
+                {
+                    question: "O que Jesus fez na Última Ceia?",
+                    answers: ["Curou os doentes", "Instituiu a comunhão", "Andou sobre a água", "Alimentou 5000"],
+                    correct: 1,
+                    verse: "E, tomando o pão, e havendo dado graças, partiu-o, e deu-lho, dizendo: Isto é o meu corpo, que por vós é dado; fazei isto em memória de mim.",
+                    reference: "Lucas 22:19",
+                    explanation: "Na Última Ceia, Jesus instituiu a comunhão, partindo o pão e partilhando o vinho com os seus discípulos."
+                },
+                {
+                    question: "Quem negou Jesus três vezes?",
+                    answers: ["João", "Pedro", "Judas", "Tomé"],
+                    correct: 1,
+                    verse: "E lembrou-se Pedro das palavras de Jesus, que lhe dissera: Antes que o galo cante, três vezes me negarás. E, saindo dali, chorou amargamente.",
+                    reference: "Mateus 26:75",
+                    explanation: "Pedro negou conhecer Jesus três vezes antes do galo cantar, tal como Jesus havia predito."
+                },
+                {
+                    question: "Em que dia Jesus ressuscitou dos mortos?",
+                    answers: ["Primeiro dia da semana", "Sábado", "Terceiro dia", "Primeiro e terceiro"],
+                    correct: 3,
+                    verse: "E, no fim do sábado, quando já despontava o primeiro dia da semana, Maria Madalena e a outra Maria foram ver o sepulcro.",
+                    reference: "Mateus 28:1",
+                    explanation: "Jesus ressuscitou no primeiro dia da semana (domingo), que foi o terceiro dia após a sua crucificação."
+                },
+                {
+                    question: "Qual é o versículo mais curto da Bíblia?",
+                    answers: ["Deus é amor", "Jesus chorou", "Orai sempre", "Sede santos"],
+                    correct: 1,
+                    verse: "Jesus chorou.",
+                    reference: "João 11:35",
+                    explanation: "O versículo mais curto da Bíblia é 'Jesus chorou', mostrando a sua humanidade e compaixão pela morte de Lázaro."
                 }
             ]
         };
@@ -392,7 +803,15 @@
             en: {
                 title: "Bible Quiz",
                 selectLanguage: "Select Language",
+                selectDifficulty: "Select Difficulty",
+                easy: "Easy",
+                medium: "Medium",
+                hard: "Hard",
+                easyDesc: "10 questions",
+                mediumDesc: "15 questions",
+                hardDesc: "25 questions",
                 score: "Score",
+                streak: "Streak",
                 question: "Question",
                 of: "of",
                 next: "Next Question",
@@ -403,14 +822,25 @@
                 needsImprovement: "Keep reading the Bible to learn more!",
                 correctAnswers: "Correct Answers",
                 incorrectAnswers: "Incorrect Answers",
+                bestStreak: "Best Streak",
                 playAgain: "Play Again",
                 correct: "Correct!",
-                incorrect: "Incorrect. The correct answer is:"
+                incorrect: "Incorrect. The correct answer is:",
+                verseReference: "Biblical Reference",
+                goBack: "← Back"
             },
             pt: {
                 title: "Quiz Bíblico",
                 selectLanguage: "Selecionar Idioma",
+                selectDifficulty: "Selecionar Dificuldade",
+                easy: "Fácil",
+                medium: "Médio",
+                hard: "Difícil",
+                easyDesc: "10 perguntas",
+                mediumDesc: "15 perguntas",
+                hardDesc: "25 perguntas",
                 score: "Pontuação",
+                streak: "Sequência",
                 question: "Pergunta",
                 of: "de",
                 next: "Próxima Pergunta",
@@ -421,26 +851,56 @@
                 needsImprovement: "Continua a ler a Bíblia para aprender mais!",
                 correctAnswers: "Respostas Correctas",
                 incorrectAnswers: "Respostas Incorrectas",
+                bestStreak: "Melhor Sequência",
                 playAgain: "Jogar Novamente",
                 correct: "Correcto!",
-                incorrect: "Incorrecto. A resposta correcta é:"
+                incorrect: "Incorrecto. A resposta correcta é:",
+                verseReference: "Referência Bíblica",
+                goBack: "← Voltar"
             }
         };
 
         function BibleQuizGame() {
             const [language, setLanguage] = useState(null);
+            const [difficulty, setDifficulty] = useState(null);
             const [currentQuestion, setCurrentQuestion] = useState(0);
             const [score, setScore] = useState(0);
             const [showResults, setShowResults] = useState(false);
             const [selectedAnswer, setSelectedAnswer] = useState(null);
             const [showFeedback, setShowFeedback] = useState(false);
             const [incorrectCount, setIncorrectCount] = useState(0);
+            const [currentStreak, setCurrentStreak] = useState(0);
+            const [bestStreak, setBestStreak] = useState(0);
+            const [gameQuestions, setGameQuestions] = useState([]);
 
             const t = language ? translations[language] : translations.en;
-            const questions = language ? questionsDatabase[language] : [];
 
             const handleLanguageSelect = (lang) => {
                 setLanguage(lang);
+            };
+
+            const handleDifficultySelect = (diff) => {
+                setDifficulty(diff);
+                const allQuestions = questionsDatabase[language];
+                let numberOfQuestions;
+                
+                switch(diff) {
+                    case 'easy':
+                        numberOfQuestions = 10;
+                        break;
+                    case 'medium':
+                        numberOfQuestions = 15;
+                        break;
+                    case 'hard':
+                        numberOfQuestions = 25;
+                        break;
+                    default:
+                        numberOfQuestions = 10;
+                }
+
+                // Shuffle and select questions
+                const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
+                setGameQuestions(shuffled.slice(0, Math.min(numberOfQuestions, shuffled.length)));
             };
 
             const handleAnswerClick = (index) => {
@@ -449,15 +909,21 @@
                 setSelectedAnswer(index);
                 setShowFeedback(true);
 
-                if (index === questions[currentQuestion].correct) {
+                if (index === gameQuestions[currentQuestion].correct) {
                     setScore(score + 1);
+                    const newStreak = currentStreak + 1;
+                    setCurrentStreak(newStreak);
+                    if (newStreak > bestStreak) {
+                        setBestStreak(newStreak);
+                    }
                 } else {
                     setIncorrectCount(incorrectCount + 1);
+                    setCurrentStreak(0);
                 }
             };
 
             const handleNextQuestion = () => {
-                if (currentQuestion < questions.length - 1) {
+                if (currentQuestion < gameQuestions.length - 1) {
                     setCurrentQuestion(currentQuestion + 1);
                     setSelectedAnswer(null);
                     setShowFeedback(false);
@@ -468,21 +934,39 @@
 
             const handleRestart = () => {
                 setLanguage(null);
+                setDifficulty(null);
                 setCurrentQuestion(0);
                 setScore(0);
                 setShowResults(false);
                 setSelectedAnswer(null);
                 setShowFeedback(false);
                 setIncorrectCount(0);
+                setCurrentStreak(0);
+                setBestStreak(0);
+                setGameQuestions([]);
+            };
+
+            const handleBackToDifficulty = () => {
+                setDifficulty(null);
+                setCurrentQuestion(0);
+                setScore(0);
+                setShowResults(false);
+                setSelectedAnswer(null);
+                setShowFeedback(false);
+                setIncorrectCount(0);
+                setCurrentStreak(0);
+                setBestStreak(0);
+                setGameQuestions([]);
             };
 
             const getResultMessage = () => {
-                const percentage = (score / questions.length) * 100;
+                const percentage = (score / gameQuestions.length) * 100;
                 if (percentage >= 80) return t.excellent;
                 if (percentage >= 60) return t.good;
                 return t.needsImprovement;
             };
 
+            // Language Selection Screen
             if (!language) {
                 return (
                     <div className="game-container">
@@ -502,8 +986,41 @@
                 );
             }
 
+            // Difficulty Selection Screen
+            if (!difficulty) {
+                return (
+                    <div className="game-container">
+                        <div className="header">
+                            <div className="cross-icon">✟</div>
+                            <h1>{t.title}</h1>
+                        </div>
+                        <div className="difficulty-select">
+                            <h3>{t.selectDifficulty}</h3>
+                            <div className="difficulty-buttons">
+                                <button className="difficulty-btn easy" onClick={() => handleDifficultySelect('easy')}>
+                                    <div>{t.easy}</div>
+                                    <div style={{fontSize: '0.9em', marginTop: '5px'}}>{t.easyDesc}</div>
+                                </button>
+                                <button className="difficulty-btn medium" onClick={() => handleDifficultySelect('medium')}>
+                                    <div>{t.medium}</div>
+                                    <div style={{fontSize: '0.9em', marginTop: '5px'}}>{t.mediumDesc}</div>
+                                </button>
+                                <button className="difficulty-btn hard" onClick={() => handleDifficultySelect('hard')}>
+                                    <div>{t.hard}</div>
+                                    <div style={{fontSize: '0.9em', marginTop: '5px'}}>{t.hardDesc}</div>
+                                </button>
+                            </div>
+                        </div>
+                        <button className="language-btn" onClick={() => setLanguage(null)} style={{width: '100%', marginTop: '20px'}}>
+                            {t.goBack}
+                        </button>
+                    </div>
+                );
+            }
+
+            // Results Screen
             if (showResults) {
-                const percentage = Math.round((score / questions.length) * 100);
+                const percentage = Math.round((score / gameQuestions.length) * 100);
                 return (
                     <div className="game-container">
                         <div className="header">
@@ -517,6 +1034,7 @@
                             <div className="results-details">
                                 <div>✓ {t.correctAnswers}: {score}</div>
                                 <div>✗ {t.incorrectAnswers}: {incorrectCount}</div>
+                                <div>🔥 {t.bestStreak}: {bestStreak}</div>
                             </div>
                             <button className="restart-btn" onClick={handleRestart}>
                                 {t.playAgain}
@@ -526,7 +1044,8 @@
                 );
             }
 
-            const question = questions[currentQuestion];
+            // Quiz Screen
+            const question = gameQuestions[currentQuestion];
             const isCorrect = selectedAnswer === question.correct;
 
             return (
@@ -537,8 +1056,13 @@
                     </div>
 
                     <div className="score-board">
-                        <div>{t.score}: {score}</div>
-                        <div>{t.question} {currentQuestion + 1} {t.of} {questions.length}</div>
+                        <div className="score-item">{t.score}: {score}</div>
+                        <div className="score-item">
+                            {currentStreak > 0 && (
+                                <span className="streak-badge">🔥 {t.streak}: {currentStreak}</span>
+                            )}
+                        </div>
+                        <div className="score-item">{t.question} {currentQuestion + 1} {t.of} {gameQuestions.length}</div>
                     </div>
 
                     <div className="question-card">
@@ -572,16 +1096,34 @@
                     {showFeedback && (
                         <div className={`feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
                             {isCorrect ? (
-                                <div>✓ {t.correct}</div>
+                                <div>
+                                    <div>✓ {t.correct}</div>
+                                    <div className="bible-verse">
+                                        "{question.verse}"
+                                        <span className="verse-reference">— {question.reference}</span>
+                                    </div>
+                                    {question.explanation && (
+                                        <div className="explanation">{question.explanation}</div>
+                                    )}
+                                </div>
                             ) : (
-                                <div>✗ {t.incorrect} {question.answers[question.correct]}</div>
+                                <div>
+                                    <div>✗ {t.incorrect} {question.answers[question.correct]}</div>
+                                    <div className="bible-verse">
+                                        "{question.verse}"
+                                        <span className="verse-reference">— {question.reference}</span>
+                                    </div>
+                                    {question.explanation && (
+                                        <div className="explanation">{question.explanation}</div>
+                                    )}
+                                </div>
                             )}
                         </div>
                     )}
 
                     {selectedAnswer !== null && (
                         <button className="next-btn" onClick={handleNextQuestion}>
-                            {currentQuestion < questions.length - 1 ? t.next : t.finish}
+                            {currentQuestion < gameQuestions.length - 1 ? t.next : t.finish}
                         </button>
                     )}
                 </div>

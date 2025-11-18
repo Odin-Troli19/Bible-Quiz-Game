@@ -1,7 +1,7 @@
 # Bible Quiz Game - Instructions
 
 ## 📖 Overview
-A bilingual (English/Portuguese) Bible quiz game that works on both desktop and mobile devices.
+A bilingual (English/Portuguese) Bible quiz game that works on both desktop and mobile devices. Features difficulty levels, Bible verse references, streak tracking, and comprehensive biblical explanations.
 
 ## 🎮 How to Use
 
@@ -13,55 +13,99 @@ A bilingual (English/Portuguese) Bible quiz game that works on both desktop and 
 1. Transfer the HTML file to your phone
 2. Open it with any mobile browser (Chrome, Safari, Firefox, etc.)
 
+## 🆕 New Features
+
+### ✨ Bible Verse References
+Every answer now includes:
+- **The actual Bible verse** quoted directly from Scripture
+- **Biblical reference** (e.g., Genesis 1:27, John 11:35)
+- **Explanation** providing context and additional information
+
+### 🎯 Difficulty Levels
+- **Easy**: 10 questions - Perfect for beginners
+- **Medium**: 15 questions - Good challenge for regular students
+- **Hard**: 25 questions - Comprehensive test of Bible knowledge
+
+### 🔥 Streak Counter
+- Track consecutive correct answers
+- See your best streak in the results screen
+- Visual streak badge appears during gameplay
+
+### 📊 Enhanced Statistics
+Results now show:
+- Score percentage
+- Correct/Incorrect answer count
+- Best streak achieved during the quiz
+
 ## ➕ How to Add More Questions
 
 Open `bible-quiz-game.html` in any text editor and find the `questionsDatabase` section (around line 265). 
 
-### Format for English Questions:
+### NEW Format with Bible Verses:
 ```javascript
 {
     question: "Your question here?",
     answers: ["Option 1", "Option 2", "Option 3", "Option 4"],
-    correct: 0  // Index of correct answer (0 = first, 1 = second, 2 = third, 3 = fourth)
+    correct: 0,  // Index of correct answer (0-3)
+    verse: "The actual Bible verse text here",
+    reference: "Book Chapter:Verse",
+    explanation: "Additional context or explanation"
 }
 ```
 
-### Format for Portuguese Questions:
+### Complete Example - English:
 ```javascript
 {
-    question: "A tua pergunta aqui?",
-    answers: ["Opção 1", "Opção 2", "Opção 3", "Opção 4"],
-    correct: 0  // Índice da resposta correcta (0 = primeira, 1 = segunda, 2 = terceira, 3 = quarta)
+    question: "Who was the father of Isaac?",
+    answers: ["Jacob", "Abraham", "Moses", "Noah"],
+    correct: 1,
+    verse: "Abraham was a hundred years old when his son Isaac was born to him.",
+    reference: "Genesis 21:5",
+    explanation: "Abraham was the father of Isaac, who was born when Abraham was 100 years old, fulfilling God's promise."
 }
 ```
 
-### Example - Adding a New Question:
-
-**English Section** (find `en: [` around line 267):
+### Complete Example - Portuguese:
 ```javascript
-en: [
-    // ... existing questions ...
-    {
-        question: "Who was the mother of Jesus?",
-        answers: ["Elizabeth", "Mary", "Martha", "Sarah"],
-        correct: 1
-    },
-    // Add more here
-]
+{
+    question: "Quem foi o pai de Isaac?",
+    answers: ["Jacob", "Abraão", "Moisés", "Noé"],
+    correct: 1,
+    verse: "Ora Abraão tinha cem anos, quando lhe nasceu Isaac, seu filho.",
+    reference: "Génesis 21:5",
+    explanation: "Abraão foi o pai de Isaac, que nasceu quando Abraão tinha 100 anos, cumprindo a promessa de Deus."
+}
 ```
 
-**Portuguese Section** (find `pt: [` around line 309):
-```javascript
-pt: [
-    // ... existing questions ...
-    {
-        question: "Quem era a mãe de Jesus?",
-        answers: ["Isabel", "Maria", "Marta", "Sara"],
-        correct: 1
-    },
-    // Add more here
-]
-```
+### Important Notes:
+- **verse**: Use actual Bible text (can be paraphrased for clarity)
+- **reference**: Book name and chapter:verse
+- **explanation**: Optional but recommended - provides learning context
+- Make sure to add questions to BOTH language sections for consistency
+
+## 📝 Current Features
+- ✅ Bilingual (English/Portuguese from Portugal)
+- ✅ **25 questions per language** (up from 10!)
+- ✅ **Bible verse references for every answer**
+- ✅ **Detailed explanations** for better learning
+- ✅ **Three difficulty levels** (Easy/Medium/Hard)
+- ✅ **Streak tracking** to gamify learning
+- ✅ Colorful, modern design
+- ✅ Enhanced statistics
+- ✅ Mobile responsive
+- ✅ Easy to expand with more questions
+
+## 🎨 Question Database Overview
+
+The game now includes 25 questions covering:
+- Creation and early Genesis
+- Prophets and Old Testament figures
+- Life of Jesus
+- Miracles and teachings
+- New Testament events
+- Biblical facts and trivia
+
+Each question includes scriptural backing and educational context!
 
 ## 📱 Making it a Mobile App
 
